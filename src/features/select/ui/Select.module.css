@@ -1,0 +1,42 @@
+.select {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+
+.selected {
+  width: 250px;
+  height: 32px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected:focus,
+.item:focus {
+  outline: 1px solid #4971ff;
+}
+
+.items {
+  width: 250px;
+  padding: 12px 0;
+  background-color: #ffffff;
+  margin-top: 2px;
+}
+
+.item {
+  padding: 8px 12px;
+  display: flex;
+}
+
+.item:hover {
+  background-color: #e4eaff;
+}

@@ -1,5 +1,11 @@
+import { SearchUser } from '../widgets/searchUser';
+
 function App() {
-  return <div>Hello</div>;
+  return (
+    <>
+      <SearchUser />
+    </>
+  );
 }
 
 export default App;
