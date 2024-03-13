@@ -11,7 +11,7 @@
 }
 
 .selected {
-  width: 250px;
+  width: 360px;
   height: 32px;
   padding: 6px 12px;
   border-radius: 4px;
@@ -26,7 +26,11 @@
 }
 
 .items {
-  width: 250px;
+  width: 360px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   padding: 12px 0;
   background-color: #ffffff;
   margin-top: 2px;
@@ -35,8 +39,23 @@
 .item {
   padding: 8px 12px;
   display: flex;
+  align-items: center;
 }
 
 .item:hover {
   background-color: #e4eaff;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 90px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3f4254;
+  border-radius: 5px;
 }
