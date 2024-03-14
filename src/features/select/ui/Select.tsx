@@ -4,7 +4,7 @@ import { Circle } from '../../../shared/ui/circle';
 import { Props, Response } from '../model/types';
 import css from './Select.module.css';
 
-export const Select = ({ options, title }: Props) => {
+export const Select = ({ options, title, onDropdownOpen, onScroll }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<
     Response['data'][0] | null
@@ -29,6 +29,13 @@ export const Select = ({ options, title }: Props) => {
     };
   }, [dropdownRef]);
 
+  useEffect(() => {
+    if (isOpen && dropdownRef.current && onDropdownOpen) {
+      const height = dropdownRef.current.scrollHeight;
+      onDropdownOpen(height);
+    }
+  }, [isOpen, onDropdownOpen]);
+
   const toggleSelect = () => {
     setIsOpen(prev => !prev);
   };
@@ -38,20 +45,38 @@ export const Select = ({ options, title }: Props) => {
     setIsOpen(false);
   };
 
+  const handleOptionKey = (
+    option: Response['data'][0],
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === 'Enter') {
+      setSelectedOption(option);
+      setIsOpen(false);
+    }
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') {
       setIsOpen(prev => !prev);
     }
   };
 
+  const handleScroll = () => {
+    if (onScroll && dropdownRef.current) {
+      const scrollTop = dropdownRef.current.scrollTop;
+      onScroll(scrollTop);
+    }
+  };
+
   return (
-    <div className={css.select} onKeyDown={handleKeyDown}>
+    <div className={css.select}>
       <h2 className={css.title}>{title}</h2>
       <div
         ref={selectInput}
         tabIndex={0}
         className={css.selected}
         onClick={toggleSelect}
+        onKeyDown={handleKeyDown}
       >
         <div>
           {selectedOption
@@ -61,12 +86,13 @@ export const Select = ({ options, title }: Props) => {
         <img src={arrow} alt='arrow' width={10} />
       </div>
       {isOpen && (
-        <div ref={dropdownRef} className={css.items}>
+        <div ref={dropdownRef} className={css.items} onScroll={handleScroll}>
           {options.map(option => (
             <div
               key={option.id}
               tabIndex={0}
               className={css.item}
+              onKeyDown={event => handleOptionKey(option, event)}
               onClick={() => handleOptionClick(option)}
             >
               <Circle

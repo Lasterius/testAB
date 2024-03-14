@@ -12,10 +12,3 @@ export type Response = {
     total: number;
   };
 };
-
-export type Props = {
-  options: Response['data'];
-  title: string;
-  onDropdownOpen: (h: number) => void;
-  onScroll: (h: number) => void;
-};

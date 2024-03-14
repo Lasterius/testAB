@@ -1,7 +1,7 @@
-export async function fetchUsers() {
+export async function fetchUsers(page: number, limit: number) {
   try {
     const response = await fetch(
-      'https://alanbase.vercel.app/api/users?page=1&limit=50'
+      `https://alanbase.vercel.app/api/users?page=${page}&limit=${limit}`
     );
     if (!response.ok) {
       throw new Error('Ошибка сети');
